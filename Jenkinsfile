@@ -25,9 +25,10 @@ spec:
     tty: true
     resources:
       limits:
+        cpu: 1
         memory: 1Gi
       requests:
-        cpu: 300m
+        cpu: 500m
         memory: 1024Mi
     env:
       - name: DOCKER_TLS_CERTDIR
