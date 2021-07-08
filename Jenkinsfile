@@ -25,6 +25,7 @@ spec:
     image: docker:20.10.7-dind
     securityContext:
       privileged: true
+      runAsUser: 0
     tty: true
     resources:
       limits:
