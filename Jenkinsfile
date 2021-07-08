@@ -25,7 +25,6 @@ spec:
     tty: true
     resources:
       limits:
-        cpu: 1
         memory: 1Gi
       requests:
         cpu: 500m
