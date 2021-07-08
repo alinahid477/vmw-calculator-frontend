@@ -13,8 +13,7 @@ spec:
           - key: daemon.json
             path: daemon.json
     - name: docker-sock
-      hostPath:
-        path: /var/run     
+      emptyDir: {}     
     - name: cache
       hostPath:
         path: /tmp
@@ -25,8 +24,6 @@ spec:
     image: docker:20.10.7-dind
     securityContext:
       privileged: true
-      runAsUser: 0
-    tty: true
     resources:
       limits:
         memory: 1Gi
