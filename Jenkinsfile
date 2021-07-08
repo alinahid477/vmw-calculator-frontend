@@ -22,6 +22,7 @@ spec:
     image: docker:19.03.1-dind
     securityContext:
       privileged: true
+    tty: true
     resources:
       limits:
         memory: 1Gi
@@ -31,6 +32,8 @@ spec:
     env:
       - name: DOCKER_TLS_CERTDIR
         value: ""
+      - name: HOME
+        value: "."
     volumeMounts:
     - name: cache
       mountPath: /var/lib/docker
