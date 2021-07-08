@@ -8,6 +8,7 @@ COPY ./package.json /app/package.json
 
 # RUN npm config get proxy && npm config rm proxy && npm config rm https-proxy && npm install && npm install react-scripts@3.4.1 -g --silent
 RUN which npm
+RUN npm config set strict-ssl false
 RUN npm config set registry http://registry.npmjs.org/ --global
 RUN npm cache clear --force
 RUN npm config set unsafe-perm true
