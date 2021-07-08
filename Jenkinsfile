@@ -12,6 +12,10 @@ spec:
         items:
           - key: daemon.json
             path: daemon.json
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+        type: File        
     - name: cache
       hostPath:
         path: /tmp
@@ -37,6 +41,8 @@ spec:
     volumeMounts:
     - name: cache
       mountPath: /var/lib/docker
+    - name: docker-sock
+      mountPath: /var/run/docker.sock          
     - name: docker-insecure-registries
       mountPath: /etc/docker/daemon.json
       subPath: daemon.json
