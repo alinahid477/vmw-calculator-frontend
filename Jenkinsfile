@@ -14,7 +14,7 @@ spec:
             path: daemon.json
     - name: docker-sock
       hostPath:
-        path: /var/run/docker.sock     
+        path: /var/run     
     - name: cache
       hostPath:
         path: /tmp
@@ -42,7 +42,7 @@ spec:
     - name: cache
       mountPath: /var/lib/docker
     - name: docker-sock
-      mountPath: /var/run/docker.sock          
+      mountPath: /var/run          
     - name: docker-insecure-registries
       mountPath: /etc/docker/daemon.json
       subPath: daemon.json
