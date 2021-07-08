@@ -14,8 +14,7 @@ spec:
             path: daemon.json
     - name: docker-sock
       hostPath:
-        path: /var/run/docker.sock
-        type: File        
+        path: /var/run/docker.sock     
     - name: cache
       hostPath:
         path: /tmp
