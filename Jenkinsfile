@@ -34,7 +34,7 @@ spec:
 ''') {
     node(POD_LABEL) {
         stage("GIT") {
-          git credentialsId: 'github-cred', url: 'https://github.com/alinahid477/vmw-calculator-frontend.git'
+          git credentialsId: 'github-cred', branch: 'main', url: 'https://github.com/alinahid477/vmw-calculator-frontend.git'
         }
 
         stage("DOCKER") {
@@ -42,15 +42,15 @@ spec:
             withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
               sh """ 
                   docker login -u ${USERNAME} -p ${PASSWORD} &&
-                  docker build -t 1.2.3.4/calc/calcfrontend:latest .
+                  docker build -t harbor-svc.haas-422.pez.vmware.com/anahid/calcfrontend:latest .
                   docker logout
               """    
                 
             }
             withCredentials([usernamePassword(credentialsId: 'harbor-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
               sh """
-                  docker login -u ${USERNAME} -p ${PASSWORD} 1.2.3.4 &&
-                  docker push 1.2.3.4/calc/calcfrontend:latest
+                  docker login -u ${USERNAME} -p ${PASSWORD} harbor-svc.haas-422.pez.vmware.com &&
+                  docker push harbor-svc.haas-422.pez.vmware.com/anahid/calcfrontend:latest
               """
             }
           }
@@ -58,7 +58,7 @@ spec:
         
         stage("K8S") {
           withKubeConfig([credentialsId: 'jenkins-robot-token',
-                      serverUrl: 'https://10.xxx.xxx.67:6443',
+                      serverUrl: 'https://192.168.220.7:6443',
                       clusterName: 'calc-k8-cluster',
                       namespace: 'calculator'
                       ]) {
