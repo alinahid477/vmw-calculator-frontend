@@ -28,7 +28,7 @@ spec:
       - name: harbor-regcred
       containers:
       - name: frontend
-        image: 1.2.3.4/calc/calcfrontend:latest
+        image: harbor-svc.haas-422.pez.vmware.com/anahid/calcfrontend:latest
         stdin: true 
         tty: true
         ports:
