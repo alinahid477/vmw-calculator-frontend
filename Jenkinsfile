@@ -21,7 +21,7 @@ spec:
   serviceAccountName: jenkins-sa
   containers:
   - name: docker
-    image: docker:20.10.7-dind
+    image: docker:20.10.7
     securityContext:
       privileged: true
     resources:
@@ -43,6 +43,13 @@ spec:
     - name: docker-insecure-registries
       mountPath: /etc/docker/daemon.json
       subPath: daemon.json
+  - name: docker-daemon
+    image: docker:20.10.7-dind
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run
 ''') {
     node(POD_LABEL) {
         stage("GIT") {
@@ -54,7 +61,7 @@ spec:
             withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
               sh """ 
                   docker login -u ${USERNAME} -p ${PASSWORD} &&
-                  docker build -t harbor-svc.haas-422.pez.vmware.com/anahid/calcfrontend:latest .
+                  DOCKER_BUILDKIT=1 docker build -t harbor-svc.haas-422.pez.vmware.com/anahid/calcfrontend:latest .
                   docker logout
               """    
                 
