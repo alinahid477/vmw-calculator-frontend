@@ -25,7 +25,7 @@ spec:
     command:
     - sleep
     args:
-    - 1d
+    - 20m
     securityContext:
       privileged: true
     resources:
@@ -51,9 +51,17 @@ spec:
     image: docker:20.10.7-dind
     securityContext:
       privileged: true
+    env:
+      - name: DOCKER_TLS_CERTDIR
+        value: ""
     volumeMounts:
+    - name: cache
+      mountPath: /var/lib/docker
     - name: docker-sock
-      mountPath: /var/run
+      mountPath: /var/run          
+    - name: docker-insecure-registries
+      mountPath: /etc/docker/daemon.json
+      subPath: daemon.json
 ''') {
     node(POD_LABEL) {
         stage("GIT") {
