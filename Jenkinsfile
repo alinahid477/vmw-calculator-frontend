@@ -19,7 +19,7 @@ spec:
   serviceAccountName: jenkins-sa
   containers:
   - name: docker
-    image: docker:19.03.1-dind
+    image: docker:20.10.7-dind
     securityContext:
       privileged: true
     tty: true
