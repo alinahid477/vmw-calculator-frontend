@@ -21,7 +21,7 @@ const apiServices = {
         formdata.append("a", x);
         formdata.append("b", y);
         return backendCommonClient.makeRESTCall(
-            `${config.APISERVICES.SUBSTRACT_SERVICE}/substract`,
+            `${config.APISERVICES.SUBTRACT_SERVICE}/subtract`,
             {
                 method: 'POST',
                 body: formdata,
