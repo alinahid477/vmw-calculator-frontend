@@ -29,6 +29,19 @@ const apiServices = {
             }
         );
     },
+    divide: (x,y) => {
+        var formdata = new FormData();
+        formdata.append("a", x);
+        formdata.append("b", y);
+        return backendCommonClient.makeRESTCall(
+            `${config.APISERVICES.DIVISION_SERVICE}/divide`,
+            {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            }
+        );
+    },
 };
 
 export default apiServices;
