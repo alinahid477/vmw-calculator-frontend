@@ -47,6 +47,9 @@ export default function operate(numberOne, numberTwo, operation) {
           return data.message;
       }
     }).catch((errorData) => {
+        if(errorData.success) {
+          return errorData.message;
+        }
         console.log(errorData);
     });
     // if (two === "0") {
