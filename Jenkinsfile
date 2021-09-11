@@ -65,7 +65,7 @@ spec:
 ''') {
     node(POD_LABEL) {
         stage("GIT") {
-          git credentialsId: 'github-cred', branch: 'main', url: 'https://github.com/alinahid477/vmw-calculator-frontend.git'
+          git credentialsId: 'pvt-repo-cred', branch: 'main', url: 'https://github.com/alinahid477/vmw-calculator-frontend.git'
         }
 
         stage("DOCKER") {
@@ -78,7 +78,7 @@ spec:
               """    
                 
             }
-            withCredentials([usernamePassword(credentialsId: 'harbor-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            withCredentials([usernamePassword(credentialsId: 'pvt-registry-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
               sh """
                   docker login -u ${USERNAME} -p ${PASSWORD} harbor-svc.haas-422.pez.vmware.com &&
                   docker push harbor-svc.haas-422.pez.vmware.com/anahid/calcfrontend:latest
