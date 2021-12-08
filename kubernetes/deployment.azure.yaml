@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calcfrontend-deploy
+  namespace: calculator
+spec:
+  selector:
+    matchLabels:
+      app: calcfrontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: calcfrontend
+    spec:
+      volumes:
+      - name: docker-insecure-registries
+        configMap:
+          name: harbor-allow-insecure-registries
+          items:
+            - key: daemon.json
+              path: daemon.json
+      - name: cache
+        hostPath:
+          path: /tmp
+          type: Directory
+      imagePullSecrets:
+      - name: default-builder-registry-cred
+      containers:
+      - name: frontend
+        image: anahidcalcacr.azurecr.io/calcfrontend:latest
+        stdin: true 
+        tty: true
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: cache
+          mountPath: /var/lib/docker
+        - name: docker-insecure-registries
+          mountPath: /etc/docker/daemon.json
+          subPath: daemon.json
+        envFrom:
+          - configMapRef:
+              name: calc-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calcfrontendservice
+  namespace: calculator
+spec:
+  selector:
+    app: calcfrontend
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP # LoadBalancer # NodePort # 
