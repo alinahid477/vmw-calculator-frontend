@@ -41,7 +41,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: calcfrontendservice
-  namespace: calculator
+  namespace: default
 spec:
   selector:
     app: calcfrontend
