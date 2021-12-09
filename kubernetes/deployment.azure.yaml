@@ -30,9 +30,6 @@ spec:
         volumeMounts:
         - name: cache
           mountPath: /var/lib/docker
-        - name: docker-insecure-registries
-          mountPath: /etc/docker/daemon.json
-          subPath: daemon.json
         envFrom:
           - configMapRef:
               name: calc-app-config
