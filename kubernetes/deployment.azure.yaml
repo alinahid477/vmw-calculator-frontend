@@ -14,12 +14,6 @@ spec:
         app: calcfrontend
     spec:
       volumes:
-      - name: docker-insecure-registries
-        configMap:
-          name: harbor-allow-insecure-registries
-          items:
-            - key: daemon.json
-              path: daemon.json
       - name: cache
         hostPath:
           path: /tmp
